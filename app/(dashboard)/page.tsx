@@ -4,7 +4,7 @@ import { UserButton } from '@clerk/nextjs'
 const page = () => {
   return (
     <div>
-      <UserButton afterSwitchSessionUrl='/'/>
+      Dashboard
     </div>
   )
 }

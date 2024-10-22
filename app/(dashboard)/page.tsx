@@ -1,12 +1,25 @@
-import React from 'react'
-import { UserButton } from '@clerk/nextjs'
+"use client"
 
-const page = () => {
+import { useGetAccounts } from "@/features/accounts/api/use-get-accounts"
+
+export default function Home() {
+  const {data: accounts, isLoading} = useGetAccounts();
+
+  if(isLoading){
+    return(
+      <div>
+        Loading...
+      </div>
+    )
+  }
+
   return (
     <div>
-      Dashboard
+      {accounts?.map((account) => (
+        <div key={account.id}>
+          {account.name}
+        </div>
+      ))}
     </div>
   )
 }
-
-export default page

@@ -3,6 +3,7 @@ import "./globals.css";
 import {
   ClerkProvider,
 } from '@clerk/nextjs'
+import { QueryProvider } from "@/providers/query-provider";
 
 export const metadata: Metadata = {
   title: "Finto",
@@ -18,7 +19,9 @@ export default function RootLayout({
     <ClerkProvider>
       <html lang="en">
         <body>
-          {children}
+          <QueryProvider>
+            {children}
+          </QueryProvider>
         </body>
       </html>
     </ClerkProvider>

@@ -6,6 +6,7 @@ import {useMedia} from "react-use"
 import {
     Sheet,
     SheetContent,
+    SheetTitle,
     SheetTrigger,
   } from "@/components/ui/sheet"
 import { Button } from './ui/button'
@@ -49,7 +50,7 @@ const Navigation = () => {
     if(isMobile){
         return(
             <Sheet open={isOpen} onOpenChange={setIsOpen}>
-                <SheetTrigger>
+                <SheetTrigger asChild>
                     <Button
                         variant="outline"
                         size="sm"
@@ -61,6 +62,7 @@ const Navigation = () => {
                     </Button>
                 </SheetTrigger>
                 <SheetContent side="left" className='px-2'>
+                    <SheetTitle/>
                     <nav className='flex flex-col gap-y-2 pt-6'>
                         {routes.map((route) => (
                             <Button

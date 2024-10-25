@@ -1,8 +1,15 @@
-import React from 'react'
+"use client";
+import { Button } from '@/components/ui/button';
+import { useNewAccount } from '@/features/accounts/hooks/use-new-account';
 
 const Home = () => {
+  const { onOpen } = useNewAccount();
   return (
-    <div>Home</div>
+    <div>
+      <Button onClick={onOpen}>
+        Add an account
+      </Button>
+    </div>
   )
 }
 

@@ -4,6 +4,7 @@ import {
   ClerkProvider,
 } from '@clerk/nextjs'
 import { QueryProvider } from "@/providers/query-provider";
+import { SheetProvider } from "@/providers/sheet-provider";
 
 export const metadata: Metadata = {
   title: "Finto",
@@ -20,6 +21,7 @@ export default function RootLayout({
       <html lang="en">
         <body>
           <QueryProvider>
+            <SheetProvider/>
             {children}
           </QueryProvider>
         </body>

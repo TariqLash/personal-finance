@@ -3,6 +3,7 @@ import { FormValue } from "hono/types";
 import { AccountForm } from "./account-form";
 import { insertAccountSchema } from "@/db/schema";
 import { useNewAccount } from "@/features/accounts/hooks/use-new-account";
+import { useCreateAccount } from "@/features/accounts/api/use-create-account";
 
 import {
     Sheet,
@@ -18,12 +19,18 @@ const formSchema = insertAccountSchema.pick({
 
 type FormValues = z.input<typeof formSchema>;
 
-  export const NewAccountSheet = () => {
+export const NewAccountSheet = () => {
     const {isOpen, onClose} = useNewAccount();
 
+    const mutation = useCreateAccount();
+
     const onSubmit = (values: FormValue) => {
-      console.log({values});
-    }
+      mutation.mutate(values,{
+        onSuccess: () => {
+          onClose();
+        },
+      });
+    };
 
     return (
     <Sheet open={isOpen} onOpenChange={onClose}>
@@ -36,7 +43,13 @@ type FormValues = z.input<typeof formSchema>;
                       Create a new account to track your transactions.
                   </SheetDescription>
               </SheetHeader>
-              <AccountForm onSubmit={onSubmit} disabled={false}/>
+              <AccountForm 
+              onSubmit={onSubmit} 
+              disabled={mutation.isPending}
+              defaultValues={{
+                name:'',
+              }}
+              />
   </SheetContent>
 </Sheet>
 

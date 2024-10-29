@@ -1,60 +1,68 @@
 "use client";
-import { Plus } from "lucide-react"
+import { Loader2, Plus } from "lucide-react"
+
 import { useNewAccount } from "@/features/accounts/hooks/use-new-account"
+import { useGetAccounts } from "@/features/accounts/api/use-get-accounts";
+import { useBulkDeleteAccounts } from "@/features/accounts/api/use-bulk-delete";
+
+import { columns } from "./columns"
 
 import { Button } from "@/components/ui/button"
+import { Skeleton } from "@/components/ui/skeleton"
 import { DataTable } from "@/components/data-table"
-import { Card, CardHeader, CardTitle } from "@/components/ui/card"
-
-import { Payment, columns } from "./columns"
-
-const data: Payment[] = [
-    {
-        id: "728ed52f",
-        amount: 100,
-        status: "pending",
-        email: "m@example.com",
-      },
-      {
-        id: "728ed52f",
-        amount: 45,
-        status: "success",
-        email: "a@example.com",
-      },
-      {
-        id: "728ed52f",
-        amount: 88,
-        status: "success",
-        email: "b@example.com",
-      },
-]
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 
 const AccountsPage = () => {
 
     const newAccount = useNewAccount();
+    const deleteAccounts = useBulkDeleteAccounts();
+    const accountsQuery = useGetAccounts();
+    const accounts = accountsQuery.data || [];
+
+    const isDisabled = accountsQuery.isLoading || deleteAccounts.isPending;
+
+    if (accountsQuery.isLoading) {
+        return (
+            <div className="max-w-screen-2xl mx-auto w-full pb-10 -mt-24">
+                <Card className="border-none drop-shadow-sm">
+                    <CardHeader>
+                        <Skeleton className="h-8 w-48"/>
+                    </CardHeader>
+                    <CardContent>
+                        <div className="h-[500px] w-full flex items-center justify-center">
+                            <Loader2 className="size-6 text-slate-300 animate-spin"/>
+                        </div>
+                    </CardContent>
+                </Card>
+            </div>
+        )
+    }
 
     return (
-    <div className="max-w-screen-2xl mx-auto w-full pb-10 -mt-24">
-        <Card className="border-none drop-shadow-sm p-0">
-            <CardHeader className="gap-y-2 lg:flex-row lg:items-center lg:justify-between p-3">
-            <CardTitle className="text-xl line-clamp-1">
-            Accounts Page
-            </CardTitle>
-            <Button onClick={newAccount.onOpen} size="sm">
-                <Plus className="size-4 mr-2"/>
-                Add New
-            </Button>
-            </CardHeader>
-            <DataTable 
-            columns={columns} 
-            data={data}
-            filterKey="email"
-            onDelete={() => {}}
-            disabled={false}
-            />
-        </Card>
-    </div>
-  )
+        <div className="max-w-screen-2xl mx-auto w-full pb-10 -mt-24">
+            <Card className="border-none drop-shadow-sm">
+                <CardHeader className="gap-y-2 lg:flex-row lg:items-center lg:justify-between p-3 pb-0">
+                    <CardTitle className="text-xl line-clamp-1">
+                        Accounts Page
+                    </CardTitle>
+                    <Button onClick={newAccount.onOpen} size="sm">
+                        <Plus className="size-4" />
+                        Add New
+                    </Button>
+                </CardHeader>
+                <DataTable
+                    columns={columns}
+                    data={accounts}
+                    filterKey="email"
+                    onDelete={(row) => {
+                        const ids = row.map((r) => r.original.id);
+                        deleteAccounts.mutate({ids});
+                    }}
+                    disabled={isDisabled}
+                />
+            </Card>
+        </div>
+    )
 }
 
 export default AccountsPage

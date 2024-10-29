@@ -8,20 +8,20 @@ import {
     DialogHeader,
     DialogTitle,
     DialogFooter,
-  } from "@/components/ui/dialog"
-  
-  import React from 'react'
-  
-  export const useConfirm = (
+} from "@/components/ui/dialog"
+
+import React from 'react'
+
+export const useConfirm = (
     title: string,
     message: string,
-  ): [() => JSX.Element, () => Promise<unknown>] => {
-    const [promise, setPromise] = useState<{resolve: (value:boolean) => void} | null>(null);
+): [() => JSX.Element, () => Promise<unknown>] => {
+    const [promise, setPromise] = useState<{ resolve: (value: boolean) => void } | null>(null);
 
     const confirm = () => new Promise((resolve, reject) => {
         setPromise({ resolve });
     });
-    
+
     const handleClose = () => {
         setPromise(null);
     }
@@ -58,5 +58,4 @@ import {
         </Dialog>
     );
     return [ConfirmationDialog, confirm]
-  }
-  
+}

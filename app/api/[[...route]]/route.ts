@@ -1,11 +1,14 @@
 import { handle } from 'hono/vercel'
 import accounts from './accounts'
+import categories from './categories';
 import { Hono } from 'hono';
 export const runtime = 'edge'
 
 const app = new Hono().basePath("/api");
 
-const routes = app.route("/accounts", accounts);
+const routes = app
+    .route("/accounts", accounts)
+    .route("/categories", categories);
 
 export const GET = handle(app);
 export const POST = handle(app);

@@ -42,7 +42,7 @@ export const EditCategorySheet = () => {
 
   const isLoading = categoryQuery.isLoading;
 
-  const onSubmit = (values: FormValue) => {
+  const onSubmit = (values: FormValues) => {
     editMutation.mutate(values, {
       onSuccess: () => {
         onClose();

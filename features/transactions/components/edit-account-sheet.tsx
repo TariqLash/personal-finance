@@ -42,7 +42,7 @@ export const EditAccountSheet = () => {
 
   const isLoading = accountQuery.isLoading;
 
-  const onSubmit = (values: FormValues) => {
+  const onSubmit = (values: FormValue) => {
     editMutation.mutate(values, {
       onSuccess: () => {
         onClose();

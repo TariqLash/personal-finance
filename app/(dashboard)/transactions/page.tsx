@@ -15,6 +15,7 @@ import { useGetTransactions } from "@/features/transactions/api/use-get-transact
 import { useBulkDeleteTransactions } from "@/features/transactions/api/use-bulk-delete-transactions";
 import { useState } from "react";
 import { UploadButton } from "./upload-button";
+import { ImportCard } from "./import-card";
 
 enum VARIANTS {
     LIST = "LIST",
@@ -30,6 +31,18 @@ const INITIAL_IMPORT_RESULTS = {
 const TransactionsPage = () => {
 
     const [variant, setVariant] = useState<VARIANTS>(VARIANTS.LIST);
+    const [importResults, setImportResults] = useState(INITIAL_IMPORT_RESULTS)
+
+    const onUpload = (results: typeof INITIAL_IMPORT_RESULTS) => {
+        console.log({results})
+        setImportResults(results);
+        setVariant(VARIANTS.IMPORT);
+    }
+
+    const onCancelImport = () => {
+        setImportResults(INITIAL_IMPORT_RESULTS);
+        setVariant(VARIANTS.LIST);
+    }
 
     const newTransaction = useNewTransaction();
     const deleteTransactions = useBulkDeleteTransactions();
@@ -58,9 +71,11 @@ const TransactionsPage = () => {
     if (variant === VARIANTS.IMPORT) {
         return (
             <>
-                <div>
-                    This is a screen for import
-                </div>
+                <ImportCard
+                    data={importResults.data}
+                    onCancel={onCancelImport}
+                    onSubmit={() => {}}
+                />
             </>
         )
     }
@@ -72,26 +87,33 @@ const TransactionsPage = () => {
                     <CardTitle className="text-xl line-clamp-1">
                         Transaction History
                     </CardTitle>
-                    <div className="flex items-center gap-x-2">
-                        <Button onClick={newTransaction.onOpen} size="sm">
+                    <div className="flex flex-col lg:flex-row gap-y-2 items-center gap-x-2">
+                        <Button 
+                            className="w-full lg:w-auto"
+                            onClick={newTransaction.onOpen} 
+                            size="sm"
+                        >
+                            
                             <Plus className="size-4" />
                             Add New
                         </Button>
                         <UploadButton
-                            onUpload={() => { }}
+                            onUpload={onUpload}
                         />
                     </div>
                 </CardHeader>
-                <DataTable
-                    filterKey="payee"
-                    columns={columns}
-                    data={transactions}
-                    onDelete={(row) => {
-                        const ids = row.map((r) => r.original.id);
-                        deleteTransactions.mutate({ ids });
-                    }}
-                    disabled={isDisabled}
-                />
+                <CardContent>
+                    <DataTable
+                        filterKey="payee"
+                        columns={columns}
+                        data={transactions}
+                        onDelete={(row) => {
+                            const ids = row.map((r) => r.original.id);
+                            deleteTransactions.mutate({ ids });
+                        }}
+                        disabled={isDisabled}
+                    />
+                </CardContent>
             </Card>
         </div>
     )

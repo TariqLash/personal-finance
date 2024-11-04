@@ -7,7 +7,6 @@ import {
 } from "@/components/ui/card"
 import { useState } from "react";
 import { ImportTable } from "./import-table";
-import { array } from "zod";
 import { convertAmountToMilliunits } from "@/lib/utils";
 import { format, parse } from "date-fns";
 
@@ -27,6 +26,7 @@ interface SelectedColumnsState {
 type Props = {
     data: string[][];
     onCancel: () => void;
+    // eslint-disable-next-line
     onSubmit: (data: any) => void;
 }
 
@@ -87,6 +87,7 @@ export const ImportCard = ({
         }
 
         const arrayOfData = mappedData.body.map((row) => {
+            // eslint-disable-next-line
             return row.reduce((acc:any, cell, index) => {
                 const header = mappedData.headers[index];
                 if(header !== null){
@@ -108,8 +109,8 @@ export const ImportCard = ({
 
     return (
         <div className="max-w-screen-2xl mx-auto w-full pb-10 -mt-24">
-            <Card className="border-none drop-shadow-sm">
-                <CardHeader className="gap-y-2 lg:flex-row lg:items-center lg:justify-between p-3 pb-0">
+            <Card className="border-none drop-shadow-lg rounded-2xl">
+                <CardHeader className="gap-y-2 lg:flex-row lg:items-center lg:justify-between p-3 pb-3">
                     <CardTitle className="text-xl line-clamp-1">
                         Import Transaction
                     </CardTitle>

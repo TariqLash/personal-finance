@@ -8,6 +8,7 @@ export const runtime = 'edge'
 
 const app = new Hono().basePath("/api");
 
+// eslint-disable-next-line
 const routes = app
     .route("/accounts", accounts)
     .route("/categories", categories)

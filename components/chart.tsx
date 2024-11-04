@@ -6,7 +6,6 @@ import { AreaVariant } from "@/components/area-variant";
 import {
     Card,
     CardContent,
-    CardDescription,
     CardHeader,
     CardTitle,
   } from "@/components/ui/card"
@@ -36,7 +35,7 @@ export const Chart = ({ data = [] }: Props) => {
     }
 
     return (
-        <Card className="border-none drop-shadow-sm">
+        <Card className="border-none drop-shadow-lg rounded-2xl">
             <CardHeader className="flex space-y-2 lg:space-y-0 lg:flex-row
             lg:items-center justify-between">
                 <CardTitle className="text-xl line-clamp-1">

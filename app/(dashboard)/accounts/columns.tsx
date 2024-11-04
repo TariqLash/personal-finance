@@ -6,7 +6,6 @@ import { ColumnDef } from "@tanstack/react-table"
 import { client } from "@/lib/hono"
 import { Button } from "@/components/ui/button"
 import { Checkbox } from "@/components/ui/checkbox"
-import { Infer } from "next/dist/compiled/superstruct"
 import { Actions } from "./actions"
 
 export type ResponseType = InferResponseType<typeof client.api.accounts.$get, 200>["data"][0]

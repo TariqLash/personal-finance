@@ -8,10 +8,9 @@ import {
 import { useState } from "react";
 import { format, subDays } from "date-fns";
 import { DateRange } from "react-day-picker";
-import { useGetSummary } from "@/features/summary/api/use-get-summary";
 import { ChevronDown } from "lucide-react";
 
-import { cn, formatDateRange } from "@/lib/utils";
+import { formatDateRange } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
 

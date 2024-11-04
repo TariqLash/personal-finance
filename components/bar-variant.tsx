@@ -5,7 +5,6 @@ import {
     ResponsiveContainer,
     BarChart,
     Bar,
-    CartesianGrid
 } from "recharts"
 
 import { CustomTooltip } from "./custom-tooltip"

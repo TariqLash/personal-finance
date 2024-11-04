@@ -4,7 +4,6 @@ import {
     RadialBarChart,
     Legend,
     ResponsiveContainer,
-    Tooltip,
 } from "recharts"
 
 const COLORS = ["#0062FF", "#12C6FF", "#FF647F", "#FF9354"];
@@ -44,9 +43,11 @@ export const RadialVariant = ({ data }: Props) => {
                     verticalAlign="bottom"
                     align="right"
                     iconType="circle"
+                    // eslint-disable-next-line
                     content={({payload}: any) => {
                         return (
                             <ul className="flex flex-col space-y-2">
+                                {/* eslint-disable-next-line */}
                                 {payload.map((entry:any, index:number) => (
                                     <li 
                                         key={`item-${index}`}

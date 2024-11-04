@@ -27,9 +27,11 @@ export const PieVariant = ({ data }: Props) => {
                     verticalAlign="bottom"
                     align="right"
                     iconType="circle"
+                    // eslint-disable-next-line
                     content={({payload}: any) => {
                         return (
                             <ul className="flex flex-col space-y-2">
+                                {/* eslint-disable-next-line */}
                                 {payload.map((entry:any, index:number) => (
                                     <li 
                                         key={`item-${index}`}
@@ -65,7 +67,7 @@ export const PieVariant = ({ data }: Props) => {
                     dataKey="value"
                     labelLine={false}
                 >
-                    {data.map((_entry, index) => (
+                    {data?.map((_entry, index) => (
                         <Cell
                             key={`cell-${index}`}
                             fill={COLORS[index % COLORS.length]}

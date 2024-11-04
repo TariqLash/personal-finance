@@ -17,7 +17,14 @@ const Header = () => {
                     <Navigation/>
                 </div>
                 <ClerkLoaded>
-                    <UserButton afterSwitchSessionUrl='/'/>
+                    <UserButton 
+                      afterSwitchSessionUrl='/'
+                      appearance={{
+                        elements:{
+                          userButtonAvatarBox: "w-8 h-8"
+                        }
+                      }}  
+                    />
                 </ClerkLoaded>
                 <ClerkLoading>
                   <Loader2 className='size-8 animate-spin text-slate-400'/>

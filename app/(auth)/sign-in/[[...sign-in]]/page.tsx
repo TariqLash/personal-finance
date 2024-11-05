@@ -5,7 +5,7 @@ import { SignIn, ClerkLoaded, ClerkLoading } from '@clerk/nextjs'
 export default function Page() {
   return (
     <div className='min-h-screen grid grid-cols-1 lg:grid-cols-2'>
-      <div className='h-full lg:flex flex-col items-center justify-center px-4'>
+      <div className='h-full lg:flex flex-col items-center justify-center px-4 bg-white'>
         <div className='text-center space-y-4 pt-16 lg:pt-0'>
           <h1 className='font-bold text-3xl text-[#2E2A47]'>
             Welcome Back!
@@ -23,8 +23,9 @@ export default function Page() {
           </ClerkLoading>
         </div>
       </div>
-      <div className="h-full bg-[#1E6AE1] hidden lg:flex items-center justify-center">
-        <Image src="/logo.png" alt="logo" height={100} width={100}/>
+      <div className="h-full bg-[#1E6AE1] hidden lg:flex flex-col items-center justify-center">
+      <Image src="/logo.png" alt="logo" height={100} width={100}/>
+      <Image src="/finto.png" alt="logo" height={100} width={100}/>
       </div>
     </div>
   )
